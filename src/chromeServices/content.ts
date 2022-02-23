@@ -8,4 +8,10 @@ export function changeColor() {
     }
 }
 
+export function addNumber(x: Number) {
+    chrome?.storage?.sync.set({'selected_number': x}, function() {
+        console.log('Value is set to ' + x);
+      })
+}
+
 changeColor()

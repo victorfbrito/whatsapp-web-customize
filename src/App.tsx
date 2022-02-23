@@ -1,29 +1,22 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { addNumber } from './chromeServices/content'
+
 
 function App() {
+  const [str_nmb, setStr_nmb] = React.useState(0)
 
-  function changeColor() {
-    console.log('teste')
-    console.log(chrome.tabs)
-    
-    chrome.tabs.query({
-      active: true,
-      currentWindow: true
-    }, (tabs) => {
-      const tab = tabs[0]
-        console.log('tab found: ', tab)
-        console.log('Turning ' + tab.url + ' red!');
-    })
+  React.useEffect(() => {
+      console.log('new nbm from storage: ',chrome.storage?.sync?.get('selected_number'))
+  }, [])
 
-    try {
-      const el = document?.getElementById('navbarTop')
-      console.log('element selected: ', el)
-      if (el) el.style.backgroundColor = "yellow"
-    }catch{
-      console.log('error in select element')
-    }
+  async function Increment() {
+    const nmb = await chrome.storage?.sync?.get('selected_number') || 0
+    const new_nmb = parseInt(nmb?.selected_number) + 1
+    if (new_nmb) addNumber(new_nmb)
+    else addNumber(1)
+    setStr_nmb(new_nmb)
   }
 
   return (
@@ -31,9 +24,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
         <p>
-          Edite <code>src/App.tsx</code> and save to reload.
+          Edite <code>{str_nmb}</code> and save to reload.
         </p>
-        <button  style={{cursor: 'pointer'}} onClick={() => changeColor()}>Teste</button>
+        <button  style={{cursor: 'pointer'}} onClick={() => Increment()}>Teste</button>
         <a
           className="App-link"
           href="https://reactjs.org"

@@ -2,9 +2,9 @@
   "name": "Whatsapp Web Customize Chrome Extension",
   "description": "Customize your Whatsapp Web with themes and images",
   "icons": {
-    "16": "favicon.ico",
-    "48": "favicon.ico",
-    "128": "favicon.ico"
+    "16": "ct.png",
+    "48": "ct.png",
+    "128": "ct.png"
   },
   "start_url": ".",
   "display": "standalone",
@@ -23,10 +23,13 @@
   ],
   "content_scripts": [
     {
-      "matches": ["https://*/*"],
+      "matches": ["https://web.whatsapp.com/*"],
       "js": ["./static/js/content.js"],
       "all_frames": false,
       "run_at": "document_end"
     }
-  ]
+  ],
+  "background": {
+    "service_worker": "./static/js/background.js"
+  }
 }

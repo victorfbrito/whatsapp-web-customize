@@ -1,4 +1,4 @@
-export function changeColor() {
+export function findEl() {
     try {
         var el = document.getElementById('search')
         console.log('found el: ',el)
@@ -14,4 +14,12 @@ export function addNumber(x: Number) {
       })
 }
 
-changeColor()
+export function changeColor(color: string) {
+    var app = document.documentElement
+    console.log('new color: ',color)
+    // put 'important' as last param if not working
+    app.style.setProperty('--conversation-panel-background',color, 'important')
+}
+
+findEl()
+changeColor('aquamarine')

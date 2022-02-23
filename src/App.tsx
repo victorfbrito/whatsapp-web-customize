@@ -1,14 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { addNumber } from './chromeServices/content'
+import { addNumber, changeColor } from './chromeServices/content'
 
 
 function App() {
   const [str_nmb, setStr_nmb] = React.useState(0)
 
   React.useEffect(() => {
-      console.log('new nbm from storage: ',chrome.storage?.sync?.get('selected_number'))
+    console.log('new nbm from storage: ',chrome.storage?.sync?.get('selected_number'))
+    changeColor('red')
   }, [])
 
   async function Increment() {

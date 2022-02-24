@@ -14,16 +14,15 @@ export function addNumber(x: Number) {
       })
 }
 
-export function changeColor(color: string) {
+export function changeProp(prop: string, val: string) {
     var app = document.documentElement
     console.log('app element: ', app)
-    console.log('new color: ',color)
+    console.log('new color: ',val)
     // put 'important' as last param if not working
-    app.style.setProperty('--conversation-panel-background',color, 'important')
+    app.style.setProperty(prop, val, 'important')
 }
 
 findEl()
-changeColor('aquamarine')
 
 chrome.runtime.onMessage.addListener(gotMessage)
 
@@ -31,4 +30,8 @@ function gotMessage(message: any, sender: any, sendResponse: any) {
     console.log('message: ',message)
     console.log('sender: ',sender)
     console.log('sendResponse: ',sendResponse)
+
+    if (message.change_prop) {
+        changeProp(message.change_prop.prop, message.change_prop.val)
+    }
 }

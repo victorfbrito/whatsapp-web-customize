@@ -31,7 +31,7 @@
 //Archived messages header
 --panel-background-colored
 
-// ? Not sure
+//Forward message header background
 --panel-background-colored-deeper
 
 //unread message date
@@ -66,3 +66,24 @@
 
 //Emoji menu active tab border bottom
 --active-tab-marker
+
+//Plane white background
+--background-default
+
+//Used when forwarding messages
+--checkbox-background
+
+//Forward message icon brackground
+--button-round-background
+
+//OK button when changing theme
+--button-primary-background
+
+//Same button but hover
+--button-primary-background-hover
+
+//White with colored text
+--button-secondary
+
+//Highlighted message to redirect (use 0.08 opacity)
+--message-selection-highlight

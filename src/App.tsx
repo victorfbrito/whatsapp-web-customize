@@ -1,25 +1,34 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import * as ct from './chromeServices/content'
-import * as bg from './chromeServices/background'
+
+var tab:any;
+
+chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+  tab = tabs[0]
+});
 
 function App() {
   const [str_nmb, setStr_nmb] = React.useState(0)
   const [newValue, setNewValue] = React.useState('')
 
   function messageSender(msg: any) {
-    chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-    var activeTab = tabs[0];
-    if (activeTab.id) chrome.tabs.sendMessage(activeTab.id, msg);
-   });
+    chrome.tabs.sendMessage(tab.id, msg);
   }
 
+  function addNumber(x: Number) {
+    chrome.storage.sync.set({'selected_number': x}, function() {
+      console.log('Value is set to ' + x);
+    })
+  }
+
+  chrome.storage?.sync?.get('selected_number').then(res => {
+    if (res.selected_number) setStr_nmb(res.selected_number)
+  })
+
   async function Increment() {
-    const nmb = await chrome.storage?.sync?.get('selected_number') || 0
-    const new_nmb = parseInt(nmb?.selected_number) + 1
-    if (new_nmb) ct.addNumber(new_nmb)
-    else ct.addNumber(1)
+    const new_nmb = str_nmb + 1
+    addNumber(new_nmb)
     setStr_nmb(new_nmb)
   }
 
@@ -27,8 +36,8 @@ function App() {
     setNewValue(event.target.value)
   }
 
-  async function ChangeProp() {
-    messageSender({'change_prop': {'prop': '--conversation-panel-background', 'val': 'black'}})
+  async function changeProp() {
+    messageSender({'change_prop': {'prop': '--conversation-panel-background', 'val': newValue}})
   }
 
   return (
@@ -39,7 +48,7 @@ function App() {
         <p>
           Write a color to override the chat background
         </p>
-        <button id="button1" style={{cursor: 'pointer'}} onClick={() => ChangeProp()}>OK</button>
+        <button id="button1" style={{cursor: 'pointer'}} onClick={() => changeProp()}>OK</button>
         <p>
           This button was clicked <code>{str_nmb}</code> times.
         </p>

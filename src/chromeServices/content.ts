@@ -1,37 +1,23 @@
-export function findEl() {
-    try {
-        var el = document.getElementById('search')
-        console.log('found el: ',el)
-        if (el) el.style.backgroundColor = "blue"
-    }catch {
-        console.log('error')
-    }
-}
+import * as styles_data from '../store/root_vars.json'
+var app: any;
 
-export function addNumber(x: Number) {
-    chrome?.storage?.sync.set({'selected_number': x}, function() {
-        console.log('Value is set to ' + x);
-      })
-}
+// chrome.runtime.sendMessage({type: "retrieve_dom"}, function(res) {
+//     app = res
+// })
 
 export function changeProp(prop: string, val: string) {
-    var app = document.documentElement
-    console.log('app element: ', app)
-    console.log('new color: ',val)
     // put 'important' as last param if not working
     app.style.setProperty(prop, val, 'important')
 }
 
-findEl()
-
-chrome.runtime.onMessage.addListener(gotMessage)
-
-function gotMessage(message: any, sender: any, sendResponse: any) {
-    console.log('message: ',message)
-    console.log('sender: ',sender)
-    console.log('sendResponse: ',sendResponse)
-
-    if (message.change_prop) {
-        changeProp(message.change_prop.prop, message.change_prop.val)
+export function getRootVarValues(styles: any) {
+    var def_styles : any = []
+    const app = getComputedStyle(document.documentElement)
+    for (const prop in styles) {
+        const res = app.getPropertyValue(styles[prop].name)
+        def_styles.push({name: styles[prop].name, val: res, desc: styles[prop].description})
     }
+    return def_styles
 }
+
+console.log(getRootVarValues(styles_data))

@@ -1,0 +1,63 @@
+[
+{"description": "green stripe outside the app",
+"name": "--app-background-stripe"
+},{"description": " ? Not sure",
+"name": "--outgoing-background"
+},{"description": "header background",
+"name": "--panel-header-background"
+},{"description": "footer background (msg sender)",
+"name": "--compose-panel-background"
+},{"description": "all the icons",
+"name": "--icon"
+},{"description": " ? highlitex text",
+"name": "--highlight"
+},{"description": "self explanatory",
+"name": "--search-input-background"
+},{"description": "search input loader ",
+"name": "--spinner-highlight"
+},{"description": "chat info popup (ex: 'Lost video call')",
+"name": "--system-message-background"
+},{"description": "Archived messages icon",
+"name": "--teal-lighter"
+},{"description": "Archived messages header",
+"name": "--panel-background-colored"
+},{"description": "Forward message header background",
+"name": "--panel-background-colored-deeper"
+},{"description": "unread message date",
+"name": "--unread-timestamp"
+},{"description": "unread message nmb of messages",
+"name": "--unread-marker-background"
+},{"description": "Perfil input label",
+"name": "--teal"
+},{"description": "Input active border (ex: change group name)",
+"name": "--input-border-active"
+},{"description": "Action button with icon (ex: add participant to group)",
+"name": "--round-icon-background"
+},{"description": "Group admin tag font-color on group details",
+"name": "--chat-marker-admin"
+},{"description": "Group admin tag background-color on group details",
+"name": "--chat-marker-background"
+},{"description": "Group admin tag border-color on group details",
+"name": "--chat-marker-admin-border"
+},{"description": "Group info background",
+"name": "--drawer-section-background"
+},{"description": "Darker color on background of drawer",
+"name": "--drawer-background-deep"
+},{"description": "Emoji menu active tab border bottom",
+"name": "--active-tab-marker"
+},{"description": "Plane white background",
+"name": "--background-default"
+},{"description": "Used when forwarding messages",
+"name": "--checkbox-background"
+},{"description": "Forward message icon brackground",
+"name": "--button-round-background"
+},{"description": "OK button when changing theme",
+"name": "--button-primary-background"
+},{"description": "Same button but hover",
+"name": "--button-primary-background-hover"
+},{"description": "White with colored text",
+"name": "--button-secondary"
+},{"description": "Highlighted message to redirect (use 0.08 opacity)",
+"name": "--message-selection-highlight"
+}
+]

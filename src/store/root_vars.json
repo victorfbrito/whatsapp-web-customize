@@ -4,6 +4,8 @@
 },{"description": " ? Not sure",
 "name": "--outgoing-background"
 },{"description": "header background",
+"name": "--conversation-panel-background"
+},{"description": "chat background",
 "name": "--panel-header-background"
 },{"description": "footer background (msg sender)",
 "name": "--compose-panel-background"

@@ -2,29 +2,74 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-var tab:any;
-
-chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-  tab = tabs[0]
-});
 
 function App() {
+  var tab:any;
+  chrome.runtime.onMessage.addListener(gotMessage)
+  chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+    tab = tabs[0]
+  });
   const [str_nmb, setStr_nmb] = React.useState(0)
   const [newValue, setNewValue] = React.useState('')
+  const [styleValues, setStyleValues] = React.useState<any[]>([])
 
   function messageSender(msg: any) {
     chrome.tabs.sendMessage(tab.id, msg);
   }
 
-  function addNumber(x: Number) {
-    chrome.storage.sync.set({'selected_number': x}, function() {
-      console.log('Value is set to ' + x);
+  function gotMessage(message: any, sender: any, sendResponse: any) {
+    console.log('message received: ', message, sender)
+    if (message.type === "send_styles") {
+      console.log('changing styles')
+      getStyles()
+      sendResponse('mocked response')
+    }
+  }
+
+  React.useEffect(() => {
+    getStyles()
+    getNumber()
+  }, [])
+
+  React.useEffect(() => console.log('new stylevalues: ',styleValues), [styleValues])
+
+  function getStyles() {
+    console.log('new styles coming')
+    chrome.storage.local.get('current_styles').then((res:any) => {
+      console.log('res: ', res.current_styles)
+      setStyleValues(res.current_styles)
     })
   }
 
-  chrome.storage?.sync?.get('selected_number').then(res => {
-    if (res.selected_number) setStr_nmb(res.selected_number)
-  })
+  function cancelChange() {
+    chrome.storage.local.get('current_styles').then((res:any) => {
+      var new_array = res.current_styles.map((e:any) => e)
+      setStyleValues([...res.current_styles])
+    })
+    messageSender({type: 'cancel_changes'})
+  }
+
+  function resetStyles() {
+    messageSender({type: 'reset_styles'})
+  }
+
+  function saveStyles() {
+    chrome.storage.local.set({'current_styles': styleValues}).then(() => 
+        console.log('updated styles')
+    )
+  }
+
+  function getNumber() {
+    chrome.storage.local.get('selected_number').then(res => {
+      if (res.selected_number) setStr_nmb(res.selected_number)
+    })
+  }
+
+  function addNumber(x: Number) {
+    chrome.storage.local.set({'selected_number': x}, function() {
+      console.log('Value is set to ' + x);
+    })
+  }
 
   async function Increment() {
     const new_nmb = str_nmb + 1
@@ -36,8 +81,17 @@ function App() {
     setNewValue(event.target.value)
   }
 
+  async function updateStyle(event: any) {
+    console.log('changing value: ', event.target.name, ' to ', event.target.value)
+    let newStyles = styleValues.map(e => (
+      e.name === event.target.name ? {...e, val: event.target.value} : e
+    ))
+    setStyleValues(newStyles);
+    messageSender({type: 'change_prop', var_name: event.target.name, val: event.target.value})
+  }
+
   async function changeProp() {
-    messageSender({'change_prop': {'prop': '--conversation-panel-background', 'val': newValue}})
+    messageSender({type: 'change_prop', var_name: '--conversation-panel-background', 'val': newValue})
   }
 
   return (
@@ -49,10 +103,31 @@ function App() {
           Write a color to override the chat background
         </p>
         <button id="button1" style={{cursor: 'pointer'}} onClick={() => changeProp()}>OK</button>
+        
+        {styleValues.map((el:any, i) => 
+          <div key={i}>
+            <p>
+            {el.desc} {el.name}
+            </p>
+            <input type="color" value={el.val} id={el.name} name={el.name} onChange={updateStyle}/>
+            {el.val}
+          </div>
+        )}
+
+        <p>
+         Discard changes
+        </p>
+        <button id="button2" style={{cursor: 'pointer'}} onClick={() => cancelChange()}>Cancel</button>
+        <button id="button3" style={{cursor: 'pointer'}} onClick={() => saveStyles()}>Save</button>
+        <button id="button3" style={{cursor: 'pointer'}} onClick={() => resetStyles()}>Reset</button>
+        
+        <p>
+          ==============================
+        </p>
         <p>
           This button was clicked <code>{str_nmb}</code> times.
         </p>
-        <button id="button1" style={{cursor: 'pointer'}} onClick={() => Increment()}>Increment</button>
+        <button id="button4" style={{cursor: 'pointer'}} onClick={() => Increment()}>Increment</button>
         <a
           className="App-link"
           href="https://reactjs.org"

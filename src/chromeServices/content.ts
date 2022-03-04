@@ -69,7 +69,10 @@ var app: any;
 //     })
 // }
 
+fetch(chrome.runtime.getURL('backgrounds/rose_lui_lava_lamp/raw.html')).then().then(res => console.log('res1: ',res.text()))
+fetch(chrome.runtime.getURL('rose_lui_lava_lamp/raw.html')).then().then(res => console.log('res2: ',res.text()))
 const bg_element = document.createElement("div");
+bg_element.id = 'WAC_bg_container'
 bg_element.style.cssText = 'width:100%;height:100%;position:fixed;'
 
 function waitForElm(selector: any) {
@@ -95,11 +98,21 @@ function waitForElm(selector: any) {
 function insertInto(existingNode: any, newNode: any) {
     console.log('inserting into: ', existingNode)
     console.log('content: ', newNode)
-    existingNode.appendChild(newNode)
+    if (newNode && newNode.nodeType === Node.ELEMENT_NODE) {
+        console.log('isnode')
+        existingNode.appendChild(newNode)
+    } else {
+        console.log('!isnode')
+        existingNode.insertAdjacentHTML( 'beforeend', newNode)
+    }
 }
 
 waitForElm('main').then((elm: any) => {
     console.log('Element is ready');
     insertInto(elm, bg_element)
     console.log(elm.textContent);
+});
+
+waitForElm('WAC_bg_container').then((elm: any) => {
+    fetch(chrome.runtime.getURL('backgrounds/rose_lui_lava_lamp/raw.html')).then().then(res => res.text()).then(html => insertInto(elm, html))
 });

@@ -66,7 +66,7 @@
 //     })
 // }
 
-const bg_element = document.createElement("div");
+var bg_element = document.createElement("div");
 bg_element.id = 'WAC_bg_container'
 bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;'
 
@@ -109,3 +109,5 @@ waitForElm('main').then((elm: any) => {
 waitForElm('bg_container').then((elm: any) => {
     fetch(chrome.runtime.getURL('backgrounds/rose_lui_lava_lamp/raw.html')).then().then(res => res.text()).then(html => insertInto(elm, html, 'beforeend'))
 });
+
+export {}

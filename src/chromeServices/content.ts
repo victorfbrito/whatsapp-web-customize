@@ -1,6 +1,3 @@
-import * as styles_data from '../store/root_vars.json'
-
-var app: any;
 // chrome.runtime.onMessage.addListener(gotMessage)
 
 // function gotMessage(message: any, sender: any, sendResponse: any) {
@@ -69,11 +66,9 @@ var app: any;
 //     })
 // }
 
-fetch(chrome.runtime.getURL('backgrounds/rose_lui_lava_lamp/raw.html')).then().then(res => console.log('res1: ',res.text()))
-fetch(chrome.runtime.getURL('rose_lui_lava_lamp/raw.html')).then().then(res => console.log('res2: ',res.text()))
 const bg_element = document.createElement("div");
 bg_element.id = 'WAC_bg_container'
-bg_element.style.cssText = 'width:100%;height:100%;position:fixed;'
+bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;'
 
 function waitForElm(selector: any) {
     return new Promise(resolve => {
@@ -95,24 +90,22 @@ function waitForElm(selector: any) {
     });
 }
 
-function insertInto(existingNode: any, newNode: any) {
-    console.log('inserting into: ', existingNode)
-    console.log('content: ', newNode)
+function insertInto(existingNode: any, newNode: any, method: string) {
     if (newNode && newNode.nodeType === Node.ELEMENT_NODE) {
         console.log('isnode')
-        existingNode.appendChild(newNode)
+        existingNode.insertAdjacentHTML( method, newNode.outerHTML )
     } else {
         console.log('!isnode')
-        existingNode.insertAdjacentHTML( 'beforeend', newNode)
+        existingNode.insertAdjacentHTML( method, newNode )
     }
 }
 
 waitForElm('main').then((elm: any) => {
     console.log('Element is ready');
-    insertInto(elm, bg_element)
+    insertInto(elm, bg_element, 'beforebegin')
     console.log(elm.textContent);
 });
 
-waitForElm('WAC_bg_container').then((elm: any) => {
-    fetch(chrome.runtime.getURL('backgrounds/rose_lui_lava_lamp/raw.html')).then().then(res => res.text()).then(html => insertInto(elm, html))
+waitForElm('bg_container').then((elm: any) => {
+    fetch(chrome.runtime.getURL('backgrounds/rose_lui_lava_lamp/raw.html')).then().then(res => res.text()).then(html => insertInto(elm, html, 'beforeend'))
 });

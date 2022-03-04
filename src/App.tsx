@@ -102,16 +102,6 @@ function App() {
           Write a color to override the chat background
         </p>
         <button id="button1" style={{cursor: 'pointer'}} onClick={() => changeProp()}>OK</button>
-        
-        {styleValues.map((el:any, i) => 
-          <div key={i}>
-            <p>
-            {el.desc} {el.name}
-            </p>
-            <input type="color" value={el.val} id={el.name} name={el.name} onChange={updateStyle}/>
-            {el.val}
-          </div>
-        )}
 
         <p>
          Discard changes

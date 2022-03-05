@@ -1,42 +1,17 @@
-chrome.runtime.onMessage.addListener(gotMessage)
-
+// ------------- message watcher
 function gotMessage(message: any, sender: any, sendResponse: any) {
     console.log('message received: ', message, sender)
-    if (message.type === "change_background") {
+    if (message.type === "change_background") { 
         console.log('message type: change background')
+        changeBg(message.path)
     } else if (message.type === "remove_background") {
         console.log('message type: remove background')
+        removeBg()
         // chrome.storage.local.get('current_styles').then(res => {
         //     loadSavedValues(res.current_styles)
         // })
     }
 }
-
-// function changeProp(prop: string, val: string) {
-//     // put 'important' as third param if not working
-//     document.documentElement.style.setProperty(prop, val)
-// }
-
-// if (document.URL === 'https://web.whatsapp.com/'){
-//     chrome.storage.local.get('current_styles').then(res => {
-//         if (Array.isArray(res.current_styles)) {
-//             console.log('existing data')
-//            loadSavedValues(res.current_styles)
-//         } else {
-//             console.log('non-existing data')
-//             chrome.storage.local.set({'current_styles': getRootVarValues(styles_data)}).then(() => 
-//             chrome.runtime.sendMessage({type: "send_styles"}, function(res) {
-//                 console.log('message sent')
-//             })
-//         )
-//         }
-//     })
-// }
-
-// ------------- creates background div when WhatsApp loads
-var bg_element = document.createElement("div");
-bg_element.id = 'bg_container'
-bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;'
 
 // ------------- waits for element to appear
 function waitForElm(selector: any) {
@@ -72,18 +47,35 @@ function insertInto(existingNode: any, newNode: any, method: string) {
 
 // ------------- add background
 function addBackground(url: string) {
+    console.log('element: ',bg_element)
+    // bg_element.innerHTML = ''
     waitForElm('bg_container').then((elm: any) => {
         fetch(chrome.runtime.getURL(url)).then(res => res.text()).then(html => insertInto(elm, html, 'beforeend'))
     });
 }
 
+// ------------- changed background
+async function changeBg(new_bg: any) {
+    removeBg()
+    addBackground('backgrounds/' + new_bg + '/index.html')
+}
+
+// ------------- remove background
+function removeBg() {
+    document.getElementById('bg_container')!.innerHTML = ''
+}
+
+// ------------- creates background div when WhatsApp loads
+var bg_element = document.createElement("div");
+bg_element.id = 'bg_container'
+bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;'
+
+// ------------- adds message listener
+chrome.runtime.onMessage.addListener(gotMessage)
+
+// ------------- insert bg container when page loads
 waitForElm('main').then((elm: any) => {
-    console.log('Element is ready');
     insertInto(elm, bg_element, 'beforebegin')
-    console.log(elm.textContent);
 });
-
-addBackground('backgrounds/beep_ghost/raw.html')
-
 
 export {}

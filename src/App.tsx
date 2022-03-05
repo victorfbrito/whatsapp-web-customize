@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import themes from './store/themes_data.json'
 
 function App() {
   var tab:any;
@@ -12,7 +13,7 @@ function App() {
   const [newValue, setNewValue] = React.useState('')
   const [styleValues, setStyleValues] = React.useState<any[]>([])
 
-  function messageSender(msg: any) {
+  function sendMessage(msg: any) {
     chrome.tabs.sendMessage(tab.id, msg);
   }
 
@@ -42,14 +43,13 @@ function App() {
 
   function cancelChange() {
     chrome.storage.local.get('current_styles').then((res:any) => {
-      var new_array = res.current_styles.map((e:any) => e)
       setStyleValues([...res.current_styles])
     })
-    messageSender({type: 'cancel_changes'})
+    sendMessage({type: 'cancel_changes'})
   }
 
   function resetStyles() {
-    messageSender({type: 'reset_styles'})
+    sendMessage({type: 'reset_styles'})
   }
 
   function saveStyles() {
@@ -80,23 +80,21 @@ function App() {
     setNewValue(event.target.value)
   }
 
-  async function updateStyle(event: any) {
-    console.log('changing value: ', event.target.name, ' to ', event.target.value)
-    let newStyles = styleValues.map(e => (
-      e.name === event.target.name ? {...e, val: event.target.value} : e
-    ))
-    setStyleValues(newStyles);
-    messageSender({type: 'change_prop', var_name: event.target.name, val: event.target.value})
+  async function changeBackground(e: any) {
+    sendMessage({type: 'change_background', path: e.path})
   }
 
   async function changeProp() {
-    messageSender({type: 'change_prop', var_name: '--conversation-panel-background', 'val': newValue})
+    sendMessage({type: 'change_prop', var_name: '--conversation-panel-background', 'val': newValue})
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
+        {themes.map(e => 
+          <img src={'backgrounds/' + e.path + '/thumbnail.png'} alt={e.title} onClick={() => changeBackground(e)}/>
+        )}
         <input value={newValue} onChange={changeState}/>
         <p>
           Write a color to override the chat background

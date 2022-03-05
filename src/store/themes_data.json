@@ -1,0 +1,34 @@
+[
+    {
+        "title": "Animated Gradient", 
+        "path": "red_stapler_animated_gradient",
+        "artist": {
+            "name": "Red Stapler",
+            "link": "https://codepen.io/redstapler/pen/LMyLxP"
+        }
+    },
+    {
+        "title": "Lava lamp", 
+        "path": "rose_lui_lava_lamp",
+        "artist": {
+            "name": "Rosa Lui",
+            "link": "search link"
+        }
+    },
+    {
+        "title": "Ghost",
+        "path": "beep_ghost",
+        "artist": {
+            "name": "Beep",
+            "link": "https://codepen.io/scoooooooby/pen/DLqWYP"
+        }
+    },
+    {
+        "title": "Stripes", 
+        "path": "tiffany_choong_stripes",
+        "artist": {
+            "name": "Tiffany Choong",
+            "link": "https://codepen.io/tiffachoo/pen/vYWLYRR"
+        }
+    }
+]

@@ -81,7 +81,13 @@ function App() {
   }
 
   async function changeBackground(e: any) {
-    sendMessage({type: 'change_background', path: e.path})
+    if (e.type === 'custom') {
+      console.log('custom')
+      sendMessage({type: 'choose_file', path: e.path})
+    } else {
+      console.log('!custom')
+      sendMessage({type: 'change_background', path: e.path})
+    }
   }
 
   async function changeProp() {
@@ -92,13 +98,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
+          <h1>Select Image</h1>
         {themes.map(e => 
           <img src={'backgrounds/' + e.path + '/thumbnail.png'} alt={e.title} onClick={() => changeBackground(e)}/>
         )}
-        <input value={newValue} onChange={changeState}/>
-        <p>
-          Write a color to override the chat background
-        </p>
+        
         <button id="button1" style={{cursor: 'pointer'}} onClick={() => changeProp()}>OK</button>
 
         <p>

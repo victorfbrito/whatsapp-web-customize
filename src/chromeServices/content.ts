@@ -1,16 +1,23 @@
 // ------------- message watcher
 function gotMessage(message: any, sender: any, sendResponse: any) {
     console.log('message received: ', message, sender)
+    console.log('message type: ', message.type)
     if (message.type === "change_background") { 
-        console.log('message type: change background')
         changeBg(message.path)
     } else if (message.type === "remove_background") {
-        console.log('message type: remove background')
         removeBg()
-        // chrome.storage.local.get('current_styles').then(res => {
+    } else if (message.type === 'change_custom_image') {
+        document.documentElement.style.setProperty('--custom-image-src', "url(" + message.src + ")")
+    } else if (message.type === "choose_file") { 
+        chooseFile().then( (e: any) => {
+            console.log('file choose response: ', e)
+            sendResponse({response: e })
+            changeBg(message.path)
+        })
+    }
+    // chrome.storage.local.get('current_styles').then(res => {
         //     loadSavedValues(res.current_styles)
         // })
-    }
 }
 
 // ------------- waits for element to appear
@@ -47,20 +54,44 @@ function insertInto(existingNode: any, newNode: any, method: string) {
 
 // ------------- add background
 function addBackground(url: string) {
-    console.log('element: ',bg_element)
-    // bg_element.innerHTML = ''
     waitForElm('bg_container').then((elm: any) => {
         fetch(chrome.runtime.getURL(url)).then(res => res.text()).then(html => insertInto(elm, html, 'beforeend'))
     });
 }
 
-// ------------- changed background
+// ------------- changes background
 async function changeBg(new_bg: any) {
     removeBg()
     addBackground('backgrounds/' + new_bg + '/index.html')
 }
 
-// ------------- remove background
+// ------------- changes background
+async function chooseFile() {
+    var fileChooser = document.createElement('input');
+    fileChooser.type = 'file';
+
+    fileChooser.addEventListener('change', function () {
+        var file = fileChooser.files![0];
+
+        var reader = new FileReader();
+        reader.onload = function(){
+            var data = 'test'
+            data = typeof reader.result === 'string' ? reader.result : 'empty_data';
+            document.documentElement.style.setProperty('--custom-image-src', 'url(' + data + ')')
+        };
+        reader.readAsDataURL(file);
+        form.reset();
+    });
+
+    /* Wrap it in a form for resetting */
+    var form = document.createElement('form');
+    form.appendChild(fileChooser);
+
+    fileChooser.click();
+    return('fileChooser clicked')
+}
+
+// ------------- removes background
 function removeBg() {
     document.getElementById('bg_container')!.innerHTML = ''
 }
@@ -70,7 +101,7 @@ var bg_element = document.createElement("div");
 bg_element.id = 'bg_container'
 bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;'
 
-// ------------- adds message listener
+// ------------- adds chrome message listener
 chrome.runtime.onMessage.addListener(gotMessage)
 
 // ------------- insert bg container when page loads

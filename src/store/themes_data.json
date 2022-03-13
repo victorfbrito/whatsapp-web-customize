@@ -40,8 +40,8 @@
         "path": "custom_image",
         "type": "custom",
         "artist": {
-            "name": null,
-            "link": null
+            "name": "null",
+            "link": "null"
         }
     }
 ]

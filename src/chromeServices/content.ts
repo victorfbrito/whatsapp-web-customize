@@ -6,14 +6,8 @@ function gotMessage(message: any, sender: any, sendResponse: any) {
         changeBg(message.path)
     } else if (message.type === "remove_background") {
         removeBg()
-    } else if (message.type === 'change_custom_image') {
-        document.documentElement.style.setProperty('--custom-image-src', "url(" + message.src + ")")
     } else if (message.type === "choose_file") { 
-        chooseFile().then( (e: any) => {
-            console.log('file choose response: ', e)
-            sendResponse({response: e })
-            changeBg(message.path)
-        })
+        chooseFile(message.path)
     }
     // chrome.storage.local.get('current_styles').then(res => {
         //     loadSavedValues(res.current_styles)
@@ -66,7 +60,7 @@ async function changeBg(new_bg: any) {
 }
 
 // ------------- changes background
-async function chooseFile() {
+async function chooseFile(path: string) {
     var fileChooser = document.createElement('input');
     fileChooser.type = 'file';
 
@@ -81,14 +75,15 @@ async function chooseFile() {
         };
         reader.readAsDataURL(file);
         form.reset();
-    });
+        changeBg(path);
+        return('fileChooser clicked')
+    }, false);
 
     /* Wrap it in a form for resetting */
     var form = document.createElement('form');
     form.appendChild(fileChooser);
 
     fileChooser.click();
-    return('fileChooser clicked')
 }
 
 // ------------- removes background
@@ -99,7 +94,7 @@ function removeBg() {
 // ------------- creates background div when WhatsApp loads
 var bg_element = document.createElement("div");
 bg_element.id = 'bg_container'
-bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;'
+bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;background-color: #121212'
 
 // ------------- adds chrome message listener
 chrome.runtime.onMessage.addListener(gotMessage)

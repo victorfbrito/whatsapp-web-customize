@@ -3,10 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import themes from './store/themes_data.json'
 
-import ThemeItem from './components/theme_item';
+import AppContainer from './components/app_container';
+import ThemeItem from './components/theme_list_item';
 import ThemeList from './components/theme_list';
+import ThemeInfo from './components/theme_info';
 
 function App() {
+  const [selected, setSelected] = React.useState({})
+
   var tab:any;
   // chrome.runtime.onMessage.addListener(gotMessage)
   // chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
@@ -104,11 +108,18 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
           <h1>Select Image</h1>
-          <ThemeList>
-            {themes.map(i => 
-              <ThemeItem data={i}/>
-            )}
-          </ThemeList>
+          <AppContainer>
+            <ThemeList>
+              {themes.map(i => 
+                <ThemeItem data={i}/>
+              )}
+              {/* delete below */}
+              {themes.map(i => 
+                <ThemeItem data={i}/>
+              )}
+            </ThemeList>
+            <ThemeInfo data={selected} />
+          </AppContainer>
         {themes.map(e => 
           <img src={'backgrounds/' + e.path + '/thumbnail.png'} alt={e.title} onClick={() => changeBackground(e)}/>
         )}

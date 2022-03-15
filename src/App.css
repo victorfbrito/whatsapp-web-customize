@@ -1,5 +1,19 @@
 .App {
   text-align: center;
+  
+}
+
+* ::-webkit-scrollbar {
+  width: 1em;
+}
+ 
+* ::-webkit-scrollbar-track {
+  background-color: #7e93d47b;
+}
+ 
+* ::-webkit-scrollbar-thumb {
+  background-color: #bd93f9;
+  /* outline: 1px solid slategrey; */
 }
 
 .App-logo {

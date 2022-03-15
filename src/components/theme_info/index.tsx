@@ -1,13 +1,13 @@
 import React from 'react';
 
 import * as ts from '../../types'
+import * as sc from './styles'
 
-import { Container } from './styles'
-
-export default function ThemeInfo({ data }: ts.ThemeItemType | any) {
+export default function ThemeInfo(data: ts.ThemeItemType) {
+    console.log('data received: ',data)
     return(
-        <Container>
+        <sc.Container>
             teste
-        </Container>
+        </sc.Container>
     )
 }

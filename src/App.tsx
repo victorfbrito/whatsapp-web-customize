@@ -112,19 +112,19 @@ function App({ selected_theme, changeTheme }: any) {
   return (
       <AppContainer>
         <ThemeList>
-          {themes.map(i => 
-            <div onClick={() => changeTheme(i)} >
+          {themes.map((i, p) => 
+            <div onClick={() => changeTheme(i)} key={p}>
               <ThemeListItem data={i}/>
             </div>
           )}
           {/* delete below */}
-          {themes.map(i => 
-            <ThemeListItem data={i}/>
+          {themes.map((i, p) => 
+            <div onClick={() => changeTheme(i)} key={p}>
+              <ThemeListItem data={i}/>
+            </div>
           )}
         </ThemeList>
-        <button onClick={() => increment(1)}>count +1</button>
-        <ThemeInfo data={selected} />
-        {selected_theme.data.title}
+        <ThemeInfo data={selected_theme.data} />
         {/* {themes.map(e => 
           <img src={'backgrounds/' + e.path + '/thumbnail.png'} alt={e.title} onClick={() => changeBackground(e)}/>
         )} */}

@@ -1,12 +1,11 @@
 import * as ts from '../../types'
-
-import { Item } from './styles'
+import * as sc from './styles'
 
 export default function ThemeListItem({ data }: ts.ThemeItemType) {
     return(
-        <Item>
+        <sc.Item>
             <img src={'backgrounds/' + data.path + '/thumbnail.png'} alt={data.title}/>
             <p>{data.title}</p>
-        </Item>
+        </sc.Item>
     )
 }

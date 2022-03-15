@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { Container } from './styles'
+import * as sc from './styles'
 
 export default function AppContainer(props: React.PropsWithChildren<{}>) {
     return (
-        <Container>
+        <sc.Container>
             {props.children}
-        </Container>
+        </sc.Container>
     )
 }

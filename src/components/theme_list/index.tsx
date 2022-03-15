@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { List } from './styles'
+import * as sc from './styles'
 
 export default function ThemeList(props: React.PropsWithChildren<{}>) {
     return (
-        <List>
+        <sc.List>
             {props.children}
-        </List>
+        </sc.List>
     )
 }

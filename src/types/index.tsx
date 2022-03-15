@@ -11,7 +11,8 @@ interface ThemeItemProps {
     title: string
     path: string
     type: string
-    artist?: ArtistType
+    artist?: ArtistType | null
+    custom_props?: any
 }
 
 interface ThemeItemDispatch extends ThemeItemType {

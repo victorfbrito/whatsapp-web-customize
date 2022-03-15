@@ -3,6 +3,9 @@
         "title": "Animated Gradient", 
         "path": "red_stapler_animated_gradient",
         "type": "animated",
+        "custom_props": [
+            {"name": "speed", "input_type": "range", "value": "50"}
+        ],
         "artist": {
             "name": "Red Stapler",
             "link": "https://codepen.io/redstapler/pen/LMyLxP"
@@ -12,6 +15,10 @@
         "title": "Lava lamp", 
         "path": "rose_lui_lava_lamp",
         "type": "animated",
+        "custom_props": [
+            {"name": "primary_color", "input_type":"color","value": "#090a0f"},
+            {"name": "secondary_color", "input_type":"color","value": "#661BAC"}
+        ],
         "artist": {
             "name": "Rosa Lui",
             "link": "search link"
@@ -21,6 +28,9 @@
         "title": "Ghost",
         "path": "beep_ghost",
         "type": "animated",
+        "custom_props": [
+            {"name": "primary_color", "input_type": "color", "value": "#ff4814"}
+        ],
         "artist": {
             "name": "Beep",
             "link": "https://codepen.io/scoooooooby/pen/DLqWYP"
@@ -30,6 +40,7 @@
         "title": "Stripes", 
         "path": "tiffany_choong_stripes",
         "type": "animated",
+        "custom_props": [],
         "artist": {
             "name": "Tiffany Choong",
             "link": "https://codepen.io/tiffachoo/pen/vYWLYRR"
@@ -39,9 +50,7 @@
         "title": "Custom Image", 
         "path": "custom_image",
         "type": "custom",
-        "artist": {
-            "name": "null",
-            "link": "null"
-        }
+        "custom_props": [],
+        "artist": null
     }
 ]

@@ -4,7 +4,8 @@ const initialState: ts.ThemeItemType = {
   data: {
     title: '',
     path: '',
-    type: ''
+    type: '',
+    artist: null
   }
 }
 

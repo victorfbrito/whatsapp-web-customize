@@ -1,6 +1,10 @@
 .App {
-  text-align: center;
-  
+  text-align: center;  
+}
+
+* {
+  box-sizing: border-box;
+  color: #fff;
 }
 
 * ::-webkit-scrollbar {

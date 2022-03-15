@@ -97,7 +97,7 @@ bg_element.id = 'bg_container'
 bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;background-color: #121212'
 
 // ------------- adds chrome message listener
-chrome.runtime.onMessage.addListener(gotMessage)
+// chrome.runtime.onMessage.addListener(gotMessage)
 
 // ------------- insert bg container when page loads
 waitForElm('main').then((elm: any) => {

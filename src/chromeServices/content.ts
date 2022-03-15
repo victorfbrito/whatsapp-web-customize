@@ -1,3 +1,5 @@
+chrome.runtime.onMessage.addListener(gotMessage)
+  
 // ------------- message watcher
 function gotMessage(message: any, sender: any, sendResponse: any) {
     console.log('message received: ', message, sender)

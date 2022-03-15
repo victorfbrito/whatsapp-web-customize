@@ -4,15 +4,28 @@ interface ArtistType {
 }
 
 interface ThemeItemType {
-    data: {
-        title: string
-        path: string
-        type: string
-        artist: ArtistType
-    }
+    data: ThemeItemProps
+}
+
+interface ThemeItemProps {
+    title: string
+    path: string
+    type: string
+    artist?: ArtistType
+}
+
+interface ThemeItemDispatch extends ThemeItemType {
+    type: 'REMOVE_THEME' | 'SELECT_THEME'
+}
+
+interface Clickable {
+    onClick: React.MouseEventHandler<HTMLElement>;
 }
 
 export type {
     ArtistType,
-    ThemeItemType
+    ThemeItemType,
+    ThemeItemProps,
+    ThemeItemDispatch,
+    Clickable
 }

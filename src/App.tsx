@@ -2,15 +2,21 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import themes from './store/themes_data.json'
+import { connect } from 'react-redux'
+import { addTodo, changeTheme } from './store/actions';
+import { toggleTodo, increment } from './store/actions';
 
 import AppContainer from './components/app_container';
-import ThemeItem from './components/theme_list_item';
+import ThemeListItem from './components/theme_list_item';
 import ThemeList from './components/theme_list';
 import ThemeInfo from './components/theme_info';
+import * as ts from './types';
 
-function App() {
+
+function App({ selected_theme, changeTheme }: any) {
   const [selected, setSelected] = React.useState({})
-
+  console.log(selected_theme)
+  // console.log('props: ', props)
   var tab:any;
   // chrome.runtime.onMessage.addListener(gotMessage)
   // chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
@@ -33,10 +39,11 @@ function App() {
   //   }
   // }
 
-  React.useEffect(() => {
-    // getStyles()
-    // getNumber()
-  }, [])
+  // React.useEffect(() => {
+  //   // getStyles()
+  //   // getNumber()
+  //   console.log('props: ',props)
+  // }, [props])
 
   React.useEffect(() => console.log('new stylevalues: ',styleValues), [styleValues])
 
@@ -77,17 +84,16 @@ function App() {
   //   })
   // }
 
-  async function Increment() {
-    console.log('increment number')
-    // const new_nmb = str_nmb + 1
-    // addNumber(new_nmb)
-    // setStr_nmb(new_nmb)
-  }
+  // async function Increment() {
+  //   console.log('increment number')
+  //   // const new_nmb = str_nmb + 1
+  //   // addNumber(new_nmb)
+  //   // setStr_nmb(new_nmb)
+  // }
 
   // async function changeState(event: any) {
   //   setNewValue(event.target.value)
   // }
-
   async function changeBackground(e: any) {
     console.log('changing background')
     // if (e.type === 'custom') {
@@ -104,53 +110,42 @@ function App() {
   // }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo"/>
-          <h1>Select Image</h1>
-          <AppContainer>
-            <ThemeList>
-              {themes.map(i => 
-                <ThemeItem data={i}/>
-              )}
-              {/* delete below */}
-              {themes.map(i => 
-                <ThemeItem data={i}/>
-              )}
-            </ThemeList>
-            <ThemeInfo data={selected} />
-          </AppContainer>
-        {themes.map(e => 
+      <AppContainer>
+        <ThemeList>
+          {themes.map(i => 
+            <div onClick={() => changeTheme(i)} >
+              <ThemeListItem data={i}/>
+            </div>
+          )}
+          {/* delete below */}
+          {themes.map(i => 
+            <ThemeListItem data={i}/>
+          )}
+        </ThemeList>
+        <button onClick={() => increment(1)}>count +1</button>
+        <ThemeInfo data={selected} />
+        {selected_theme.data.title}
+        {/* {themes.map(e => 
           <img src={'backgrounds/' + e.path + '/thumbnail.png'} alt={e.title} onClick={() => changeBackground(e)}/>
-        )}
-        
-        {/* <button id="button1" style={{cursor: 'pointer'}} onClick={() => changeProp()}>OK</button> */}
-
-        <p>
-         Discard changes
-        </p>
-        {/* <button id="button2" style={{cursor: 'pointer'}} onClick={() => cancelChange()}>Cancel</button>
-        <button id="button3" style={{cursor: 'pointer'}} onClick={() => saveStyles()}>Save</button>
-        <button id="button3" style={{cursor: 'pointer'}} onClick={() => resetStyles()}>Reset</button> */}
-        
-        <p>
-          ==============================
-        </p>
-        <p>
-          This button was clicked <code>{str_nmb}</code> times.
-        </p>
-        <button id="button4" style={{cursor: 'pointer'}} onClick={() => Increment()}>Increment</button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        )} */}
+      </AppContainer>
   );
 }
 
-export default App;
+const mapStateToProps = (state: any) => ({
+  count: state.counter.counter,
+  selected_theme: state.selected_theme.data
+})
+
+const mapDispatchToProps = (dispatch: any) => ({
+  increment: (nmr: any) => {
+    dispatch(increment(nmr))
+  },
+  changeTheme: (data: ts.ThemeItemProps) => {
+    dispatch(changeTheme({data: data}))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// export default connect()(App);

@@ -15,7 +15,7 @@ export default function ThemeInfo({ data }: ts.ThemeItemType) {
                     <p>{data.title}</p>
                     <ThemeConfig custom_props ={data?.custom_props || {}}/>
                     {data.artist &&
-                        <p>Theme based on code by <a href={data.artist.link} target="_blank">{data.artist.name}</a></p>
+                        <p>Theme based on code by <a href={data.artist.link} target="_blank" rel="noreferrer">{data.artist.name}</a></p>
                     }
                 </>
             }

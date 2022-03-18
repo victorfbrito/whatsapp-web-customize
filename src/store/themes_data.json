@@ -47,6 +47,18 @@
         }
     },
     {
+        "title": "Starry night", 
+        "path": "sylvain_garnot_starry_night",
+        "type": "animated",
+        "custom_props": [
+            {"name": "clouds", "input_type": "checkbox", "value": true}
+        ],
+        "artist": {
+            "name": "Sylvain Garnot",
+            "link": "https://codepen.io/sylvaingarnot/pen/LNJgaZ"
+        }
+    },
+    {
         "title": "Custom Image", 
         "path": "custom_image",
         "type": "custom",

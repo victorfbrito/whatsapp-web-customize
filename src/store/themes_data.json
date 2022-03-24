@@ -16,12 +16,12 @@
         "path": "rose_lui_lava_lamp",
         "type": "animated",
         "custom_props": [
-            {"name": "primary_color", "input_type":"color","value": "#090a0f"},
-            {"name": "secondary_color", "input_type":"color","value": "#661BAC"}
+            {"name": "primary_color", "input_type":"color","value": "linear-gradient(#A271F6, #AB61D4)"},
+            {"name": "secondary_color", "input_type":"color","value": "linear-gradient(#D461AC, #F67185)"}
         ],
         "artist": {
-            "name": "Rosa Lui",
-            "link": "search link"
+            "name": "Rose Lui",
+            "link": "https://codepen.io/404ryannotfound/pen/gOpXpMM"
         }
     },
     {

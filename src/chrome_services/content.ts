@@ -13,9 +13,7 @@ function gotMessage(message: any, sender: any, sendResponse: any) {
     } else if (message.type === "change_root_variables") {
         setVariables(message.content)
     }
-    // chrome.storage.local.get('current_styles').then(res => {
-        //     loadSavedValues(res.current_styles)
-        // })
+    sendResponse({message: 'message received, sending response'})
 }
 
 // ------------- waits for element to appear
@@ -39,7 +37,9 @@ function waitForElm(selector: any) {
     });
 }
 
+// ------------- insert custom variables in the html
 function setVariables(list: any) {
+    if (list.length === 0) return 
     for ( var i = 0; i < list.length; i++ ) {
         document.documentElement.style.setProperty(`--wac_custom_var_${i}`, list[i])
     }

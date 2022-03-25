@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import themes from './store/themes_data.json'
@@ -18,12 +18,12 @@ chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
   tab = tabs[0]
 });
 
-function sendMessage(msg: any) {
-  chrome.tabs.sendMessage(tab.id, msg);
+function sendMessage(msg: any, get_response?: any) {
+  chrome.tabs.sendMessage(tab.id, msg, get_response || null);
 }
 
-function App({ selected_theme, changeTheme }: any) {
-  
+function App({ changeTheme }: any) {
+  const [selected_theme, setSelectedTheme] = React.useState<any>(null)
 
   // function getNumber() {
   //   chrome.storage.local.get('selected_number').then(res => {
@@ -37,6 +37,12 @@ function App({ selected_theme, changeTheme }: any) {
   //   })
   // }
 
+  useEffect(() => {console.log('new theme: ', selected_theme)}, [selected_theme])
+
+  useEffect(() => {
+    chrome.storage.local.get("selected_theme").then(e => setSelectedTheme(e.selected_theme))
+  }, [])
+
   async function chooseTheme(e: any) {
     if (e.type === 'custom') {
       console.log('custom')
@@ -44,7 +50,12 @@ function App({ selected_theme, changeTheme }: any) {
     } else {
       console.log('!custom')
       changeTheme(e)
-      sendMessage({type: 'change_background', path: e.path})
+      sendMessage({type: 'change_root_variables', content: e.color_schemes[0]}, function(response: any) {
+        chrome.storage.local.set({'selected_theme': e}, function() {
+          setSelectedTheme(e)
+        })
+        sendMessage({type: 'change_background', path: e.path})
+      })
     }
   }
 
@@ -63,7 +74,9 @@ function App({ selected_theme, changeTheme }: any) {
             </div>
           )}
         </ThemeList>
-        <ThemeInfo data={selected_theme.data} />
+        {selected_theme &&
+          <ThemeInfo data={selected_theme} />
+        }
       </AppContainer>
   );
 }

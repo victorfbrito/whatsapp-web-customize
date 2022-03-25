@@ -6,6 +6,7 @@
         "custom_props": [
             {"name": "speed", "input_type": "range", "value": "50"}
         ],
+        "color_schemes": [],
         "artist": {
             "name": "Red Stapler",
             "link": "https://codepen.io/redstapler/pen/LMyLxP"
@@ -49,8 +50,6 @@
             ["#75AC25"],
             ["#3283B5"],
             ["#0A5D9A"],
-            ["#232F37"],
-            ["#1B2735"],
             ["#090a0f"]
         ],
         "artist": {
@@ -62,6 +61,7 @@
         "title": "Stripes", 
         "path": "tiffany_choong_stripes",
         "type": "animated",
+        "color_schemes": [],
         "artist": {
             "name": "Tiffany Choong",
             "link": "https://codepen.io/tiffachoo/pen/vYWLYRR"
@@ -74,6 +74,7 @@
         "custom_props": [
             {"name": "clouds", "input_type": "checkbox", "value": true}
         ],
+        "color_schemes": [],
         "artist": {
             "name": "Sylvain Garnot",
             "link": "https://codepen.io/sylvaingarnot/pen/LNJgaZ"
@@ -84,6 +85,7 @@
         "path": "custom_image",
         "type": "custom",
         "custom_props": [],
+        "color_schemes": [],
         "artist": null
     }
 ]

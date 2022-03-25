@@ -7,7 +7,17 @@ import * as ts from '../../types'
 import * as sc from './styles'
 
 export default function ThemeInfo({ data }: ts.ThemeItemType) {
-    console.log('data received: ',data)
+
+    var tab:any;
+    
+    chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+      tab = tabs[0]
+    });
+    
+    function sendMessage(msg: any) {
+        console.log('sending message: ', msg)
+        chrome.tabs.sendMessage(tab.id, msg);
+    }
 
     return(
         <sc.Container>
@@ -28,6 +38,7 @@ export default function ThemeInfo({ data }: ts.ThemeItemType) {
                     {data.artist &&
                         <p>Theme based on code by <a href={data.artist.link} target="_blank" rel="noreferrer">{data.artist.name}</a></p>
                     }
+                    <button onClick={() => sendMessage({type: "remove_theme"})}>Reset</button>
                 </>
             }
         </sc.Container>

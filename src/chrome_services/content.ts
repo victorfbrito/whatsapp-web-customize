@@ -6,7 +6,7 @@ function gotMessage(message: any, sender: any, sendResponse: any) {
     console.log('message type: ', message.type)
     if (message.type === "change_background") { 
         changeBg(message.path)
-    } else if (message.type === "remove_background") {
+    } else if (message.type === "remove_theme") {
         removeBg()
     } else if (message.type === "choose_file") { 
         chooseFile(message.path)
@@ -98,7 +98,14 @@ async function chooseFile(path: string) {
 
 // ------------- removes background
 function removeBg() {
+    console.log('removing bg')
     document.getElementById('bg_container')!.innerHTML = ''
+}
+
+// ------------- removes data from storage
+function clearStorage() {
+    chrome.storage.local.set({'selected_variables': null})
+    chrome.storage.local.set({'selected_theme': null})
 }
 
 // ------------- creates background div when WhatsApp loads

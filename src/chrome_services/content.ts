@@ -57,9 +57,9 @@ function insertInto(existingNode: any, newNode: any, method: string) {
 }
 
 // ------------- add background
-function addBackground(url: string) {
+function addBackground(path: string) {
     waitForElm('bg_container').then((elm: any) => {
-        fetch(chrome.runtime.getURL(url)).then(res => res.text()).then(html => insertInto(elm, html, 'beforeend'))
+        fetch(chrome.runtime.getURL(path)).then(res => res.text()).then(html => insertInto(elm, html, 'beforeend'))
     });
 }
 
@@ -112,6 +112,19 @@ bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;back
 // ------------- insert bg container when page loads
 waitForElm('main').then((elm: any) => {
     insertInto(elm, bg_element, 'beforebegin')
+});
+
+waitForElm('bg_container').then((elm: any) => {
+    chrome.storage.local.get('selected_variables').then( e => {
+            console.log('found variables: ', e)
+            setVariables(e.selected_variables)  
+        }
+    )
+    chrome.storage.local.get('selected_theme').then( e => {
+        console.log('found theme: ', e)
+        changeBg(e.selected_theme.path)  
+        }
+    )
 });
 
 export {}

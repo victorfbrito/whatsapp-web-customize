@@ -15,9 +15,15 @@ export default function SchemeButton( { data }  : any) {
         console.log('sending message: ', msg)
         chrome.tabs.sendMessage(tab.id, msg);
     }
+
+    function setVariables(option: any) {
+        chrome.storage.local.set({'selected_variables': option}, function() {
+            sendMessage({type: "change_root_variables", content: data})
+        })
+    }
     
     return(
-        <sc.Container onClick={() => sendMessage({type: "change_root_variables", content: data})}>
+        <sc.Container onClick={() => setVariables(data)}>
             <sc.Circle>
                 {data.length > 1 ? data.slice(0, 2).map((e: ts.Color, i: number) => 
                     <sc.Slice color={e} key={i}/>

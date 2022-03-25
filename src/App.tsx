@@ -50,6 +50,9 @@ function App({ changeTheme }: any) {
     } else {
       console.log('!custom')
       changeTheme(e)
+      chrome.storage.local.set({'selected_variables': e.color_schemes[0]}, function() {
+        setSelectedTheme(e)
+      })
       sendMessage({type: 'change_root_variables', content: e.color_schemes[0]}, function(response: any) {
         chrome.storage.local.set({'selected_theme': e}, function() {
           setSelectedTheme(e)

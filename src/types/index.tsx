@@ -28,7 +28,7 @@ type Color = string;
 
 interface SchemeSliceProps {
     color: Color
-    degree: number
+    whole?: boolean
 }
  
 export type {

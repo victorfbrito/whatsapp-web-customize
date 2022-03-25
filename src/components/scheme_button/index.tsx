@@ -4,14 +4,14 @@ import * as ts from '../../types'
 import * as sc from './styles'
 
 export default function SchemeButton( { data }  : any) {
-    const angle = 360/(data.length)
-
     return(
         <sc.Container>
             <sc.Circle>
-                {data.map((e: ts.Color, i: number) => 
-                    <sc.Slice color={e} degree={ i * angle } key={i}/>
-                )}
+                {data.length > 1 ? data.slice(0, 2).map((e: ts.Color, i: number) => 
+                    <sc.Slice color={e} key={i}/>
+                ) :
+                    <sc.Slice whole color={data[0]} key={0}/>
+                }
             </sc.Circle>
         </sc.Container>
     )

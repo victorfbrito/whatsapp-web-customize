@@ -15,10 +15,6 @@
         "title": "Lava lamp", 
         "path": "rose_lui_lava_lamp",
         "type": "animated",
-        "custom_props": [
-            {"name": "primary_color", "input_type":"color","value": "radial-gradient(ellipse at bottom, rgba(27, 39, 53, 1), rgba(9, 10, 15, 1))"},
-            {"name": "secondary_color", "input_type":"color","value": "linear-gradient(#D461AC, #F67185)"}
-        ],
         "color_schemes" : [
             [
                 "radial-gradient(ellipse at bottom, rgba(27, 39, 53, 1), rgba(9, 10, 15, 1))",
@@ -32,32 +28,6 @@
                 "red",
                 "green",
                 "yellow"
-            ],
-            [
-                "red",
-                "green",
-                "yellow",
-                "blue",
-                "purple"
-            ],
-            [
-                "red",
-                "green",
-                "yellow",
-                "blue",
-                "purple",
-                "yellow",
-                "blue"
-            ],
-            [
-                "red",
-                "green",
-                "yellow",
-                "blue",
-                "purple",
-                "yellow",
-                "blue",
-                "purple"
             ]
         ],
         "artist": {
@@ -69,8 +39,19 @@
         "title": "Ghost",
         "path": "beep_ghost",
         "type": "animated",
-        "custom_props": [
-            {"name": "primary_color", "input_type": "color", "value": "#ff4814"}
+        "color_schemes": [
+            ["#e8630a"],
+            ["#ff4814"],
+            ["#EA3281"],
+            ["#E71669"],
+            ["#661BAC"],
+            ["#FDC600"],
+            ["#75AC25"],
+            ["#3283B5"],
+            ["#0A5D9A"],
+            ["#232F37"],
+            ["#1B2735"],
+            ["#090a0f"]
         ],
         "artist": {
             "name": "Beep",
@@ -81,7 +62,6 @@
         "title": "Stripes", 
         "path": "tiffany_choong_stripes",
         "type": "animated",
-        "custom_props": [],
         "artist": {
             "name": "Tiffany Choong",
             "link": "https://codepen.io/tiffachoo/pen/vYWLYRR"

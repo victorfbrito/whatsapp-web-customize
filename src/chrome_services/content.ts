@@ -10,6 +10,8 @@ function gotMessage(message: any, sender: any, sendResponse: any) {
         removeBg()
     } else if (message.type === "choose_file") { 
         chooseFile(message.path)
+    } else if (message.type === "change_root_variables") {
+        setVariables(message.content)
     }
     // chrome.storage.local.get('current_styles').then(res => {
         //     loadSavedValues(res.current_styles)
@@ -35,6 +37,12 @@ function waitForElm(selector: any) {
             subtree: true
         });
     });
+}
+
+function setVariables(list: any) {
+    for ( var i = 0; i < list.length; i++ ) {
+        document.documentElement.style.setProperty(`--wac_custom_var_${i}`, list[i])
+    }
 }
 
 // ------------- insert element in given position

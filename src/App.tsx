@@ -12,26 +12,18 @@ import ThemeList from './components/theme_list';
 import ThemeInfo from './components/theme_info';
 import * as ts from './types';
 
+var tab:any;
+
+chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+  tab = tabs[0]
+});
+
+function sendMessage(msg: any) {
+  chrome.tabs.sendMessage(tab.id, msg);
+}
 
 function App({ selected_theme, changeTheme }: any) {
   
-  var tab:any;
-  // chrome.runtime.onMessage.addListener(gotMessage)
-  // chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-  //   tab = tabs[0]
-  // });
-
-  // function sendMessage(msg: any) {
-  //   chrome.tabs.sendMessage(tab.id, msg);
-  // }
-
-  function gotMessage(message: any, sender: any, sendResponse: any) {
-    console.log('message received: ', message, sender)
-    if (message.type === "send_styles") {
-      console.log('changing styles')
-      sendResponse('mocked response')
-    }
-  }
 
   // function getNumber() {
   //   chrome.storage.local.get('selected_number').then(res => {
@@ -48,11 +40,11 @@ function App({ selected_theme, changeTheme }: any) {
   async function chooseTheme(e: any) {
     if (e.type === 'custom') {
       console.log('custom')
-      // sendMessage({type: 'choose_file', path: e.path})
+      sendMessage({type: 'choose_file', path: e.path})
     } else {
       console.log('!custom')
       changeTheme(e)
-      // sendMessage({type: 'change_background', path: e.path})
+      sendMessage({type: 'change_background', path: e.path})
     }
   }
 

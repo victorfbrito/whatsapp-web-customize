@@ -13,6 +13,9 @@ export const Container = styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 export const Circle = styled.div`

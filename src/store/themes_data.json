@@ -16,8 +16,49 @@
         "path": "rose_lui_lava_lamp",
         "type": "animated",
         "custom_props": [
-            {"name": "primary_color", "input_type":"color","value": "linear-gradient(#A271F6, #AB61D4)"},
+            {"name": "primary_color", "input_type":"color","value": "radial-gradient(ellipse at bottom, rgba(27, 39, 53, 1), rgba(9, 10, 15, 1))"},
             {"name": "secondary_color", "input_type":"color","value": "linear-gradient(#D461AC, #F67185)"}
+        ],
+        "color_schemes" : [
+            [
+                "radial-gradient(ellipse at bottom, rgba(27, 39, 53, 1), rgba(9, 10, 15, 1))",
+                "linear-gradient(#D461AC, #F67185)"
+            ],
+            [
+                "aquamarine",
+                "rebeccapurple"
+            ],
+            [
+                "red",
+                "green",
+                "yellow"
+            ],
+            [
+                "red",
+                "green",
+                "yellow",
+                "blue",
+                "purple"
+            ],
+            [
+                "red",
+                "green",
+                "yellow",
+                "blue",
+                "purple",
+                "yellow",
+                "blue"
+            ],
+            [
+                "red",
+                "green",
+                "yellow",
+                "blue",
+                "purple",
+                "yellow",
+                "blue",
+                "purple"
+            ]
         ],
         "artist": {
             "name": "Rose Lui",

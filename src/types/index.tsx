@@ -13,6 +13,7 @@ interface ThemeItemProps {
     type: string
     artist?: ArtistType | null
     custom_props?: any
+    color_schemes?: Color[][]
 }
 
 interface ThemeItemDispatch extends ThemeItemType {
@@ -23,10 +24,19 @@ interface Clickable {
     onClick: React.MouseEventHandler<HTMLElement>;
 }
 
+type Color = string;
+
+interface SchemeSliceProps {
+    color: Color
+    degree: number
+}
+ 
 export type {
     ArtistType,
     ThemeItemType,
     ThemeItemProps,
     ThemeItemDispatch,
-    Clickable
+    Clickable,
+    Color,
+    SchemeSliceProps
 }

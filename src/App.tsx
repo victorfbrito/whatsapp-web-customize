@@ -16,14 +16,14 @@ import * as ts from './types';
 function App({ selected_theme, changeTheme }: any) {
   
   var tab:any;
-  chrome.runtime.onMessage.addListener(gotMessage)
-  chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
-    tab = tabs[0]
-  });
+  // chrome.runtime.onMessage.addListener(gotMessage)
+  // chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+  //   tab = tabs[0]
+  // });
 
-  function sendMessage(msg: any) {
-    chrome.tabs.sendMessage(tab.id, msg);
-  }
+  // function sendMessage(msg: any) {
+  //   chrome.tabs.sendMessage(tab.id, msg);
+  // }
 
   function gotMessage(message: any, sender: any, sendResponse: any) {
     console.log('message received: ', message, sender)
@@ -48,11 +48,11 @@ function App({ selected_theme, changeTheme }: any) {
   async function chooseTheme(e: any) {
     if (e.type === 'custom') {
       console.log('custom')
-      sendMessage({type: 'choose_file', path: e.path})
+      // sendMessage({type: 'choose_file', path: e.path})
     } else {
       console.log('!custom')
       changeTheme(e)
-      sendMessage({type: 'change_background', path: e.path})
+      // sendMessage({type: 'change_background', path: e.path})
     }
   }
 

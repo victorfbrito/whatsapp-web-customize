@@ -108,6 +108,11 @@ function clearStorage() {
     chrome.storage.local.set({'selected_theme': null})
 }
 
+// ------------- removes (apparently unnecessary) scale-x transform for overlaying prevention 
+function clearTransform() {
+    document.styleSheets[0].insertRule("div#main { transform: none !important; }", 0)
+}
+
 // ------------- creates background div when WhatsApp loads
 var bg_element = document.createElement("div");
 bg_element.id = 'bg_container'
@@ -118,6 +123,8 @@ bg_element.style.cssText = 'width:100%;height:100%;position:fixed;z-index:1;back
 
 // ------------- insert bg container when page loads
 waitForElm('main').then((elm: any) => {
+    elm.setAttribute('style', 'color: red')
+    clearTransform()
     insertInto(elm, bg_element, 'beforebegin')
 });
 

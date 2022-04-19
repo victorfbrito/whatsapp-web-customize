@@ -17,6 +17,7 @@ export const Item = styled.div`
         transition: 0.1s;
     }
     & > p {
+        text-align: center;
         position: absolute;
         bottom: 0;
         margin: 0;

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import themes from './store/themes_data.json'
+
 import AppContainer from './components/app_container';
-import ThemeListItem from './components/theme_list_item';
 import ThemeList from './components/theme_list';
 import ThemeInfo from './components/theme_info';
 
@@ -45,19 +44,7 @@ export default function App() {
 
   return (
       <AppContainer>
-        <ThemeList>
-          {themes.map((i, p) => 
-            <div onClick={() => chooseTheme(i)} key={p}>
-              <ThemeListItem data={i}/>
-            </div>
-          )}
-          {/* delete below */}
-          {themes.map((i, p) => 
-            <div onClick={() => chooseTheme(i)} key={p}>
-              <ThemeListItem data={i}/>
-            </div>
-          )}
-        </ThemeList>
+        <ThemeList chooseTheme={(i: any) => chooseTheme(i)} />
         {selected_theme &&
           <ThemeInfo data={selected_theme} />
         }

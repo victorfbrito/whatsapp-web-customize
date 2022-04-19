@@ -4,7 +4,8 @@ interface ArtistType {
 }
 
 interface ThemeItemType {
-    data: ThemeItemProps
+    data: ThemeItemProps,
+    doAction?: React.MouseEventHandler<HTMLElement>
 }
 
 interface ThemeItemProps {

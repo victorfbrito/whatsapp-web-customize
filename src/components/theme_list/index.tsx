@@ -61,14 +61,14 @@ export default function ThemeList(
             </sc.Tabs>
             <TabPanel value={value} index={0}>
                  <sc.List>
-                    {themes.map((i, p) => 
+                    {themes.filter(i => i.type === 'static').map((i, p) => 
                         <ThemeListItem data={i} doAction={() => props.chooseTheme(i)} key={p}/>
                     )}
                 </sc.List>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <sc.List>
-                    {themes.map((i, p) => 
+                    {themes.filter(i => i.type === 'animated').map((i, p) => 
                     <ThemeListItem data={i} doAction={() => props.chooseTheme(i)} key={p}/>
 
                 )}

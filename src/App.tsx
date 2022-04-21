@@ -36,7 +36,7 @@ export default function App() {
         setSelectedTheme(e)
       })
       sendMessage({type: 'change_root_variables', content: e.color_schemes[0]}, function(response: any) {
-        sendMessage({type: 'change_background', path: e.path}, function() {
+        sendMessage({type: 'change_background', path: e.path, bg_type: e.type}, function() {
         })
       })
     }

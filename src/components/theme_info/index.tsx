@@ -23,7 +23,7 @@ export default function ThemeInfo({ data }: ts.ThemeItemType) {
         <sc.Container>
             {data?.title &&
                 <>
-                    <sc.Icon src={'backgrounds/' + data.path + '/thumbnail.gif'} alt={data.title} />
+                    <sc.Icon src={'backgrounds/' + data.type + '/' + data.path + '/thumbnail.gif'} alt={data.title} />
                     <p>{data.title}</p>
                     {data.color_schemes && 
                         <sc.SchemeList>

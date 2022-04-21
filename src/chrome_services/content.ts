@@ -5,7 +5,7 @@ function gotMessage(message: any, sender: any, sendResponse: any) {
     console.log('message received: ', message, sender)
     console.log('message type: ', message.type)
     if (message.type === "change_background") { 
-        changeBg(message.path)
+        changeBg(message.path, message.bg_type)
     } else if (message.type === "remove_theme") {
         removeBg()
     } else if (message.type === "choose_file") { 
@@ -64,9 +64,10 @@ function addBackground(path: string) {
 }
 
 // ------------- changes background
-async function changeBg(new_bg: any) {
+async function changeBg(new_bg: any, bg_type: string) {
     removeBg()
-    addBackground('backgrounds/' + new_bg + '/index.html')
+    console.log('new bg type: ', bg_type)
+    addBackground('backgrounds/' + bg_type + '/' + new_bg + '/index.html')
 }
 
 // ------------- changes background
@@ -85,7 +86,7 @@ async function chooseFile(path: string) {
         };
         reader.readAsDataURL(file);
         form.reset();
-        changeBg(path);
+        changeBg(path, 'static');
         return('fileChooser clicked')
     }, false);
 
@@ -136,7 +137,7 @@ waitForElm('bg_container').then((elm: any) => {
     )
     chrome.storage.local.get('selected_theme').then( e => {
         console.log('found theme: ', e)
-        changeBg(e.selected_theme.path)  
+        changeBg(e.selected_theme.path, e.selected_theme.type)  
         }
     )
 });

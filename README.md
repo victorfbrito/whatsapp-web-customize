@@ -26,7 +26,7 @@ This project is a browser extension experiment built with Vue. It allows it's us
 
 ### Built with
 
-- Vue
+- React
 - Styled Components
 - Chrome Extension API
 
